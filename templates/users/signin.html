@@ -1,0 +1,43 @@
+{% extends '_layouts/base.html' %}
+
+{% block content %}
+    <div class="content-panel">
+    <!-- ======================================== -->
+    <form id="form1" action="/users/sign_in" method="POST" onsubmit="return true">
+        {% csrf_token %}
+        <p>
+            <label for="login">Логін</label><br>
+            <input type="text" id="login" name="login" class="inp" required>
+            <div id="login-mess" class="mess"></div>
+        </p>
+        <p>
+            <label for="pass1">Пароль</label><br>
+            <input type="password" id="pass1" name="pass1" class="inp" required>
+            <div id="pass1-mess" class="mess"></div>
+        </p>
+        <p>
+            <input type="checkbox" id="remember" name="remember">
+            <label >Залишатись в системі</label><br>
+        </p>
+        <p style="margin-top: 30px; text-align: center">
+            <input id="submit" type="submit" value="Увійти" class="btn">
+            <input id="reset" type="reset" value="очистити" class="btn">
+        </p>
+    </form>
+    <!-- ======================================== -->
+</div>
+<style>
+    #form1 {
+    text-align: left;
+    width: 350px;
+    margin: 0 auto;
+    }
+    .inp {
+        width: 98%;
+        padding: 5px;
+    }
+    .mess {
+
+    }
+</style>
+{% endblock content %}

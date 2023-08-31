@@ -1,0 +1,407 @@
+{% extends '_layouts/base.html' %}
+
+{% block content %}
+<!-- Shop Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-12">
+                <form method="get">
+                    {% for form in myFilter.form %}
+                    {{ form.name }}
+                    {{ form }}
+
+                    <br>
+                    {% endfor %}
+                    <br>
+                    <button type="submit">search</button>
+                </form>
+                <!-- Category Start -->
+                <!--<div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Категорії</h5>
+                    <form>
+                        {% for category in all_categories %}
+                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                            <input type="checkbox" class="custom-control-input" data-filter="category" value="{{ category.id }}" id="category-{{ category.id }}">
+                            <label class="custom-control-label" for="category-{{ category.id }}"> {{ category.name }}</label>
+                            <span class="badge border font-weight-normal">0</span>
+                        </div>
+                        {% endfor %}
+                    </form>
+                </div>-->
+                <!-- Category End -->
+
+                <!-- Brand Start -->
+                <!--<div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Бренди</h5>
+                    <form>
+                        {% for brand in all_brands %}
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" data-filter="brand" value="{{ brand.id }}" id="brand-{{ brand.id }}">
+                                    <label class="custom-control-label" for="brand-{{ brand.id }}"><img src="/media/{{brand.image}}" style="width:50px;" alt="No"> {{ brand.name }}</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                        {% endfor %}
+                    </form>
+                </div>-->
+                <!-- Brand End -->
+
+                <!-- Color Start -->
+                <!--<div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Кольори</h5>
+                    <form>
+                        {% for color in all_colors %}
+                            <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input type="checkbox" class="custom-control-input" data-filter="color" value="{{ color.id }}" id="color-{{ color.id }}">
+                                <label class="custom-control-label" for="color-{{ color.id }}"><i class="fa fa-circle" aria-hidden="true" style="color: {{ color.color_code }}"></i> {{ color.name }}</label>
+                                <span class="badge border font-weight-normal">0</span>
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>-->
+                <!-- Color End -->
+
+
+                <!-- Size Start -->
+                <!--<div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Розміри</h5>
+                    <form>
+                        {% for size in all_sizes %}
+                                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" data-filter="size" value="{{ size.id }}" id="size-{{ size.id }}">
+                                    <label class="custom-control-label" for="size-{{ size.id }}"> {{ size.name }}</label>
+                                    <span class="badge border font-weight-normal">0</span>
+                                </div>
+                        {% endfor %}
+                    </form>
+                </div>-->
+                <!-- Size End -->
+            </div>
+            <!-- Shop Sidebar End -->
+
+
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-12">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <form action="">
+                                <div class="input-group" id="autocomplete">
+                                    <input type="text" class="form-control" placeholder="Search by name">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text bg-transparent text-primary">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                        <ul class="autocomplete-result-list"></ul>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="dropdown ml-4">
+                                <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                            Sort by
+                                        </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
+                                    <a class="dropdown-item" href="#">Latest</a>
+                                    <a class="dropdown-item" href="#">Popularity</a>
+                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="filteredProducts">
+                        {% for product in all_products %}
+                        <a href="/catalog/details/{{ product.id }}">
+                        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                            <div class="card product-item border-0 mb-4">
+                                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                    <img class="img-fluid w-100" src="/media/{{product.product_images.first.image}}" alt="Зображення відсутнє">
+                                </div>
+                                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                    <h6 class="text-truncate mb-3">{{ product.name }}</h6>
+                                    <div class="d-flex justify-content-center">
+                                        <h6>{{ product.price }} ₴</h6><!--<h6 class="text-muted ml-2"><del>$123.00</del></h6>-->
+                                    </div>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between bg-light border">
+                                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                    <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="col-12 pb-1">
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-center mb-3">
+                            <li class="page-item disabled">
+                              <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                              <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Raleway);
+
+/* Select style here */
+
+select {
+  margin: 0 auto;
+  color: #EC6F66;
+  width: 310px;
+  padding: 15px;
+  height: 25px;
+  cursor: pointer;
+  background: url(http://sharpik.com/wip/cuteselect/arrow.png) 295px 12px no-repeat white;
+}
+
+select:hover {
+  background-color: transparent;
+  color: white;
+  padding: 15px 5px 15px 25px;
+}
+
+select option {
+  background-color: white;
+  color: gray;
+  width: 310px;
+  padding: 10px 15px;
+  height: 20px;
+  cursor: pointer;
+}
+
+select option:hover {
+  padding-left: 25px;
+  width: 270px;
+  color: #EC6F66;
+}
+</style>
+<script>
+    (function() {
+
+  var CuteSelect = CuteSelect || {};
+
+  FIRSTLOAD = true;
+  SOMETHINGOPEN = false;
+
+  CuteSelect.tools = {
+    canRun: function() {
+      var myNav = navigator.userAgent.toLowerCase();
+      var browser = (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+      if(browser) {
+        return (browser > 8) ? true : false;
+      } else { return true; }
+    },
+    uniqid: function() {
+      var n= Math.floor(Math.random()*11);
+      var k = Math.floor(Math.random()* 1000000);
+      var m = String.fromCharCode(n)+k;
+      return m;
+    },
+    hideEverything: function() {
+      if(SOMETHINGOPEN) {
+        SOMETHINGOPEN = false;
+        targetThis = false;
+        var cells = document.getElementsByTagName('div');
+        for (var i = 0; i < cells.length; i++) {
+          if(cells[i].hasAttribute('data-cuteselect-options')) {
+            var parent = cells[i].parentNode;
+            cells[i].style.opacity = '0';
+            cells[i].style.display = 'none';
+          }
+        }
+      }
+    },
+    getStyle: function() {
+      var css = '';
+      var stylesheets = document.styleSheets;
+      var css = '';
+      for(s = 0; s < stylesheets.length; s++) {
+        var classes = stylesheets[s].rules || stylesheets[s].cssRules;
+        for (var x = 0; x < classes.length; x++) {
+          if(classes[x].selectorText != undefined) {
+            var selectPosition = classes[x].selectorText.indexOf('select');
+            var optionPosition = classes[x].selectorText.indexOf('option');
+            var selectChar = classes[x].selectorText.charAt(selectPosition - 1);
+            var optionChar = classes[x].selectorText.charAt(optionPosition - 1);
+            if(selectPosition >= 0 && optionPosition >= 0 && (selectChar == '' || selectChar == '}' || selectChar == ' ') && (optionChar == '' || optionChar == '}' || optionChar == ' ')) {
+              text = (classes[x].cssText) ? classes[x].cssText : classes[x].style.cssText;
+              css += text.replace(/\boption\b/g, '[data-cuteselect-value]').replace(/\bselect\b/g, '[data-cuteselect-item]');
+              continue;
+            }
+            if(selectPosition >= 0) {
+              var character = classes[x].selectorText.charAt(selectPosition - 1);
+              if(character == '' || character == '}' || character == ' ') {
+                text = (classes[x].cssText) ? classes[x].cssText : classes[x].style.cssText;
+                css += text.replace(/\bselect\b/g, '[data-cuteselect-item]');
+              }
+            }
+            if(optionPosition >= 0) {
+              var character = classes[x].selectorText.charAt(optionPosition - 1);
+              if(character == '' || character == '}' || character == ' ') {
+                text = (classes[x].cssText) ? classes[x].cssText : classes[x].style.cssText;
+                css += text.replace(/\boption\b/g, '[data-cuteselect-value]');
+              }
+            }
+          }
+        }
+      }
+
+      return css;
+    },
+    createSelect: function(item) {
+
+      // Create custom select
+      var node = document.createElement("div");
+      if(item.hasAttribute('id')) { // Catch ID
+        node.setAttribute('id', item.getAttribute('id'));
+        item.removeAttribute('id');
+      }
+      if(item.hasAttribute('class')) { // Catch Class
+        node.setAttribute('class', item.getAttribute('class'));
+        item.removeAttribute('class');
+      }
+
+      // Hide select
+      item.style.display = 'none';
+
+      // Get Default value (caption)
+      var caption = null;
+      var cells = item.getElementsByTagName('option');
+      for (var i = 0; i < cells.length; i++) {
+        caption = cells[0].innerHTML;
+        if(cells[i].hasAttribute('selected')) {
+          caption = cells[i].innerHTML;
+          break;
+        }
+      }
+
+      // Get select options
+      var options = '<div data-cuteselect-title>' + caption + '</div><div data-cuteselect-options><div data-cuteselect-options-container>';
+      var cells = item.getElementsByTagName('option');
+      for (var i = 0; i < cells.length; i++) {
+        if(cells[i].hasAttribute('disabled')) { continue; }
+        if(cells[i].hasAttribute('class')) { var optionStyle = ' class="' + cells[i].getAttribute('class') + '"'; } else { var optionStyle = ''; }
+        if(cells[i].hasAttribute('id')) { var optionId = ' id="' + cells[i].getAttribute('id') + '"'; } else { var optionId = ''; }
+        if(cells[i].hasAttribute('selected')) { options += '<div data-cuteselect-value="' + cells[i].value + '" data-cuteselect-selected="true"' + optionStyle + optionId + '>' + cells[i].innerHTML + '</div>'; }
+        else { options += '<div data-cuteselect-value="' + cells[i].value + '"' + optionStyle + optionId + '>' + cells[i].innerHTML + '</div>'; }
+      }
+      options += '</div></div>';
+
+      // New select customization
+      node.innerHTML = caption;
+      node.setAttribute('data-cuteselect-item', CuteSelect.tools.uniqid());
+      node.innerHTML = options; // Display options
+      item.setAttribute('data-cuteselect-target', node.getAttribute('data-cuteselect-item'));
+      item.parentNode.insertBefore(node, item.nextSibling);
+
+      // Hide all options
+      CuteSelect.tools.hideEverything();
+    },
+    show: function(item) {
+      if(item.parentNode.hasAttribute('data-cuteselect-item')) { var source = item.parentNode.getAttribute('data-cuteselect-item'); }
+      else { var source = item.getAttribute('data-cuteselect-item'); }
+      var cells = document.getElementsByTagName('select');
+      if(item.hasAttribute('data-cuteselect-title')) {
+        item = item.parentNode;
+        var cells = item.getElementsByTagName('div');
+      }
+      else { var cells = item.getElementsByTagName('div');  }
+      for (var i = 0; i < cells.length; i++) {
+        if(cells[i].hasAttribute('data-cuteselect-options')) {
+          targetItem = cells[i];
+          cells[i].style.display = 'block';
+          setTimeout(function() { targetItem.style.opacity = '1'; }, 10);
+          cells[i].style.position = 'absolute';
+          cells[i].style.left = item.offsetLeft + 'px';
+          cells[i].style.top = (item.offsetTop + item.offsetHeight) + 'px';
+        }
+      }
+
+      item.focus();
+
+      SOMETHINGOPEN = item.getAttribute('data-cuteselect-item');
+    },
+    selectOption: function(item) {
+      var label = item.innerHTML;
+      var value = item.getAttribute('data-cuteselect-value');
+      var parent = item.parentNode.parentNode.parentNode;
+      var target = parent.getAttribute('data-cuteselect-item');
+      var cells = parent.getElementsByTagName('div');
+      for (var i = 0; i < cells.length; i++) {
+        if(cells[i].hasAttribute('data-cuteselect-title')) { cells[i].innerHTML = label; }
+      }
+
+      // Real select
+      var cells = document.getElementsByTagName('select');
+      for (var i = 0; i < cells.length; i++) {
+        var source = cells[i].getAttribute('data-cuteselect-target');
+        if(source == target) { cells[i].value = value; }
+      }
+      CuteSelect.tools.hideEverything();
+    },
+    writeStyles: function() {
+      toWrite = '<style type="text/css">' + CuteSelect.tools.getStyle() + ' [data-cuteselect-options] { opacity: 0; display: none; }</style>';
+      document.write(toWrite);
+    }
+  };
+
+  CuteSelect.event = {
+    parse: function() {
+      var cells = document.getElementsByTagName('select');
+      for (var i = 0; i < cells.length; i++) { CuteSelect.tools.createSelect(cells[i]); }
+    },
+    listen: function() {
+      document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) { CuteSelect.tools.hideEverything(); }
+      };
+      document.onclick = function(event) {
+        FIRSTLOAD = false;
+        if((!event.target.getAttribute('data-cuteselect-item') && !event.target.getAttribute('data-cuteselect-value') && !event.target.hasAttribute('data-cuteselect-title')) || ((event.target.hasAttribute('data-cuteselect-item') || event.target.hasAttribute('data-cuteselect-title')) && SOMETHINGOPEN)) {
+          CuteSelect.tools.hideEverything();
+          return;
+        }
+        var action = event.target;
+        if(event.target.getAttribute('data-cuteselect-value')) {
+          CuteSelect.tools.selectOption(action);
+          CuteSelect.tools.hideEverything();
+        }
+        else { CuteSelect.tools.show(action); }
+        return false;
+      }
+    },
+    manage: function() {
+      if(CuteSelect.tools.canRun()) { // IE Compatibility
+        CuteSelect.event.parse();
+        CuteSelect.event.listen();
+        CuteSelect.tools.writeStyles();
+      }
+    }
+  };
+
+  CuteSelect.event.manage();
+
+})();
+</script>
+
+{% endblock content %}
